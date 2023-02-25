@@ -29,23 +29,28 @@ class SignInViewModel @Inject constructor(private val insertUser: InsertUserToDB
 
     fun insert() {
         viewModelScope.launch {
-            val user = User(
-                firstName = _firstName.value,
-                lastName = _lastName.value,
-                email = _email.value,
-                password = "",
-                avatar = ""
-            )
-            try {
-                insertUser(user)
-                _eventFLow.emit(Logged.Success)
-            }catch (e: Throwable){
-                e.message?.let {
-                    if (it.contains("UNIQUE constraint failed"))
-                        _eventFLow.emit(Logged.Failure("User with firstname ${firstName.value} already exist. Do you want to log in?"))
-                }
+            if (_email.value.isEmail()){
+                val user = User(
+                    firstName = _firstName.value,
+                    lastName = _lastName.value,
+                    email = _email.value,
+                    password = "",
+                    avatar = ""
+                )
+                try {
+                    insertUser(user)
+                    _eventFLow.emit(Logged.Success)
+                }catch (e: Throwable){
+                    e.message?.let {
+                        if (it.contains("UNIQUE constraint failed"))
+                            _eventFLow.emit(Logged.Failure("User with firstname ${firstName.value} already exist. Do you want to log in?"))
+                    }
 
+                }
+            }else{
+                _eventFLow.emit(Logged.Failure("incorrect email"))
             }
+
 
         }
     }
