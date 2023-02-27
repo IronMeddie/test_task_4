@@ -9,4 +9,11 @@ interface UserRepository {
     suspend fun insertUser(user: User)
 
     suspend fun deleteUser(user: User)
+
+    suspend fun updateAvatar(user: User)
+
+
+    suspend fun getCurrentUser(): String?
+    suspend fun putCurrentUser(firstName: String)
+    suspend fun logout()
 }

@@ -1,12 +1,15 @@
 package com.example.remote.data.repository
 
+import android.util.Log
 import com.example.remote.data.remote.DataResource
 import com.example.remote.data.utils.Constance
+import com.google.gson.Gson
 import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
+import org.json.JSONObject
 import retrofit2.HttpException
 
 interface BaseRepository {
@@ -20,15 +23,21 @@ interface BaseRepository {
                         is HttpException -> {
                             DataResource.Failure(
                                 throwable.code(),
-                                JsonParser().parse(throwable.response()?.errorBody().toString()).asString
+                                throwable.message()
                             )
                         }
                         else -> {
                             if (throwable.message == Constance.NO_INTERNET) {
-                                DataResource.Failure(Constance.NO_INTERNET_CODE, throwable.message ?: Constance.NO_INTERNET)
+                                DataResource.Failure(
+                                    Constance.NO_INTERNET_CODE,
+                                    throwable.message ?: Constance.NO_INTERNET
+                                )
 
                             } else {
-                                DataResource.Failure(Constance.OTHER_ERROR_CODE, throwable.message ?: Constance.OTHER_ERROR)
+                                DataResource.Failure(
+                                    Constance.OTHER_ERROR_CODE,
+                                    throwable.message ?: Constance.OTHER_ERROR
+                                )
                             }
                         }
                     }

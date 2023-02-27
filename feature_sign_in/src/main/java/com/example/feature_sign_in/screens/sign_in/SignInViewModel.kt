@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.database.entity.User
 import com.example.feature_sign_in.domain.use_cases.InsertUserToDB
+import com.example.feature_sign_in.domain.use_cases.NewCurrentUser
 import com.example.feature_sign_in.screens.welcome_back.Logged
 import com.example.feature_sign_in.utils.isEmail
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(private val insertUser: InsertUserToDB) : ViewModel() {
+class SignInViewModel @Inject constructor(private val insertUser: InsertUserToDB, private val currentUser: NewCurrentUser) : ViewModel() {
 
     private val _firstName = MutableStateFlow("")
     val firstName = _firstName.asStateFlow()
@@ -40,6 +41,7 @@ class SignInViewModel @Inject constructor(private val insertUser: InsertUserToDB
                 try {
                     insertUser(user)
                     _eventFLow.emit(Logged.Success)
+                    currentUser(user)
                 }catch (e: Throwable){
                     e.message?.let {
                         if (it.contains("UNIQUE constraint failed"))

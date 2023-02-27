@@ -18,20 +18,11 @@ private val LightColorPalette = lightColors(
     primary = AppBlue,
     primaryVariant = GreyField,
     secondary = DarkBlue,
-    background = Color.White,
+    background = Background,
     onBackground = AppBlack,
     secondaryVariant = GreyText,
     onPrimary = AppWhite,
-
-
-
-    /* Other default colors to override
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
+    onSurface = White
 )
 
 @Composable
@@ -41,7 +32,6 @@ fun Test_task_4Theme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compo
     } else {
         LightColorPalette
     }
-
     MaterialTheme(
         colors = colors,
         typography = Typography,

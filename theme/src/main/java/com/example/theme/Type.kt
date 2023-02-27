@@ -25,6 +25,20 @@ val Typography = Typography(
         letterSpacing = (-0.3).sp
     ),
 
+    h3 = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.W700,
+        fontSize = 20.sp,
+        lineHeight = (24.38).sp,
+        letterSpacing = -(0.3).sp
+    ),
+    h2 = TextStyle(
+        fontFamily = FontFamily(Font(R.font.poppins)),
+        fontWeight = FontWeight.W500,
+        fontSize = 15.sp,
+        letterSpacing = -(0.3).sp,
+        color = AppBlack
+    )
     /* Other default text styles to override
     button = TextStyle(
         fontFamily = FontFamily.Default,

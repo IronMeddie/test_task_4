@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.pm.ApplicationInfo
 import com.example.remote.data.remote.ApiService
 import com.example.remote.data.remote.NetworkConnectionInterceptor
+import com.example.remote.data.repository.ApiRepositoryImpl
+import com.example.remote.data.repository.RepositoryLatest
 import com.example.remote.data.utils.Constance
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -16,6 +18,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -53,11 +56,11 @@ class DataModule {
             .build()
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideProductsRepository(api: ApiService) : Repository {
-//        return RepositoryImpl(api)
-//    }
+    @Provides
+    @Singleton
+    fun provideProductsRepository(api: ApiService) : RepositoryLatest {
+        return ApiRepositoryImpl(api)
+    }
 
 
     @Provides

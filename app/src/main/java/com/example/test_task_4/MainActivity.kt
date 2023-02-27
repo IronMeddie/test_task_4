@@ -43,7 +43,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Test_task_4Theme {
-                // A surface container using the 'background' color from the theme
                 val navController = rememberNavController()
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
@@ -51,7 +50,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = {
                         if (currentDestination?.route in getMenu().map { it.route })
-                        BottomNavMenu(navController = navController)
+                            BottomNavMenu(navController = navController)
                     }
                 ) {
                     NavHost(
@@ -86,14 +85,16 @@ fun BottomNavMenu(navController: NavController) {
             .clip(MaterialTheme.shapes.medium)
             .fillMaxWidth()
             .height(63.dp)
-            .padding(vertical = 13.dp), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically
+            .background(MaterialTheme.colors.onSurface)
+            .padding(vertical = 13.dp)
+            , horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically
     ) {
         items.forEachIndexed { i, it ->
             Box(modifier = Modifier
                 .size(40.dp)
                 .clip(CircleShape)
                 .clickable { navController.navigate(it.route) }
-                .background(if (selected == it.route) GreyIconBack else MaterialTheme.colors.background), contentAlignment = Alignment.Center) {
+                .background(if (selected == it.route) GreyIconBack else MaterialTheme.colors.onSurface), contentAlignment = Alignment.Center) {
                 Icon(painter = painterResource(id = it.icon), contentDescription = "bottom menu icon $i", tint = if (selected == it.route) SelectedIcon else GreyIcon  )
             }
         }

@@ -1,4 +1,4 @@
-package com.example.feature_f.domain.repository
+package com.example.remote.data.repository
 
 import com.example.models.FlashSale
 import com.example.models.Latest

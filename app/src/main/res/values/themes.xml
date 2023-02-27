@@ -2,7 +2,7 @@
 <resources>
 
     <style name="Theme.Test_task_4" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/whiteback</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>
