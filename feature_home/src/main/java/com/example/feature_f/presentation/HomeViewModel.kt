@@ -11,10 +11,7 @@ import com.example.models.FlashSale
 import com.example.models.Latest
 import com.example.remote.data.remote.DataResource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,8 +22,6 @@ class HomeViewModel @Inject constructor(
     private val saleUC: GetSale
 ) : ViewModel() {
 
-    private val _user = MutableStateFlow<User?>(null)
-    val user = _user.asStateFlow()
 
     private val _search = MutableStateFlow("")
     val search = _search.asStateFlow()
@@ -37,6 +32,11 @@ class HomeViewModel @Inject constructor(
     private val _sale = MutableStateFlow<DataResource<List<FlashSale>>>(DataResource.Loading)
     val sale = _sale.asStateFlow()
 
+    private val _user = MutableStateFlow<DataResource<User?>>(DataResource.Loading)
+    val user = _user.asStateFlow()
+
+
+
     init {
         getCurrentUser()
         getLatest()
@@ -45,20 +45,15 @@ class HomeViewModel @Inject constructor(
 
     fun getCurrentUser() {
         viewModelScope.launch {
-            _user.value = currentUserUC()
+            val resp = currentUserUC()
+            _user.emit(DataResource.Success(resp))
+            Log.d("checkCodeHomeViewModel", resp?.firstName ?: "user is null" )
         }
     }
 
     fun getLatest() {
         latestUC().onEach {
             _latest.value = it
-            when(it){
-                is DataResource.Loading ->{}
-                is DataResource.Success -> Log.d("checkCodeVM", " datasource Success")
-                is DataResource.Failure -> Log.d("checkCodeVM", " datasource FAIL, ${it.errorCode}  ${it.errorBody}")
-
-            }
-
         }.launchIn(viewModelScope)
     }
 
@@ -73,3 +68,10 @@ class HomeViewModel @Inject constructor(
     }
 
 }
+
+sealed class AuthState(){
+   object Loading : AuthState()
+   object Authorizated : AuthState()
+   object NotAuthorizated : AuthState()
+}
+

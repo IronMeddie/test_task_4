@@ -10,8 +10,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Navigation" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/database" />
+            <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/feature_home" />
             <option value="$PROJECT_DIR$/feature_profile" />
             <option value="$PROJECT_DIR$/feature_sign_in" />

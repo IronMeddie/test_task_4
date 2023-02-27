@@ -23,7 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.feature_sign_in.R
 import com.example.feature_sign_in.screens.sign_in.MyTextField
-import com.example.feature_sign_in.screens.sign_in.navigateToMainScreen
+import com.example.navigation.navigateToMainScreen
 import com.example.theme.GreyField
 import com.example.theme.GreyText
 import kotlinx.coroutines.delay

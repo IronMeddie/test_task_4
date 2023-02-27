@@ -23,17 +23,14 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.example.feature_sign_in.R
 import com.example.feature_sign_in.screens.welcome_back.Logged
+import com.example.navigation.navigateToMainScreen
+import com.example.navigation.navigateToSignUp
 import com.example.theme.AppLink
 import com.example.theme.GreyField
 import com.example.theme.GreyText
 import kotlinx.coroutines.flow.collectLatest
 
-fun NavController.navigateToSignUp(navOptions: NavOptions? = null){
-    this.navigate("sign_up_route")
-}
-fun NavController.navigateToMainScreen(navOptions: NavOptions? = null){
-    this.navigate("home_route")
-}
+
 
 
 @Composable

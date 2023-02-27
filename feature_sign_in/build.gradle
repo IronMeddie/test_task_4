@@ -38,6 +38,7 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':Navigation')
     implementation project(path: ':theme')
     implementation project(path: ':models')
     implementation project(path: ':database')

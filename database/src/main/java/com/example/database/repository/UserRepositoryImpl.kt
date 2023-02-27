@@ -3,6 +3,9 @@ package com.example.database.repository
 import com.example.database.data_source.UserDao
 import com.example.database.data_source.UserSP
 import com.example.database.entity.User
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class UserRepositoryImpl(private val dao: UserDao, private val sp: UserSP) : UserRepository {
@@ -14,8 +17,9 @@ class UserRepositoryImpl(private val dao: UserDao, private val sp: UserSP) : Use
     override suspend fun deleteUser(user: User) = dao.deleteUser(user)
     override suspend fun updateAvatar(user: User) = dao.updateAvatar(user)
 
-
-    override suspend fun getCurrentUser(): String? = sp.getCurrentUser()
+    override suspend fun getCurrentUser(): String = sp.getCurrentUser()
     override suspend fun putCurrentUser(firstName: String)= sp.putCurrentUser(firstName)
-    override suspend fun logout() = sp.logOut()
+    override suspend fun logout() {
+        CoroutineScope(Dispatchers.IO).launch { sp.logOut() }
+    }
 }

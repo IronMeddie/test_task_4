@@ -51,6 +51,8 @@ android {
 dependencies {
     implementation project(path: ':feature_home')
     implementation project(path: ':feature_sign_in')
+    implementation project(path: ':feature_profile')
+    implementation project(path: ':Navigation')
     implementation project(path: ':models')
     implementation project(path: ':remote')
     implementation project(path: ':theme')

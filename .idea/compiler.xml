@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.7">
+    <bytecodeTargetLevel target="11">
       <module name="test_task_4.app_theme" target="11" />
+      <module name="test_task_4.NavHost" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
