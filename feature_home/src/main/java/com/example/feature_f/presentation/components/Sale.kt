@@ -1,6 +1,7 @@
 package com.example.feature_f.presentation.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -32,25 +33,26 @@ import com.example.theme.Discont
 import com.example.theme.IconButton
 
 @Composable
-fun Sale(sale: List<FlashSale>) {
+fun Sale(sale: List<FlashSale>, onClick: (FlashSale) -> Unit) {
     Column {
         PartHeader(stringResource(R.string.flash_sale)){ }
         Spacer(modifier = Modifier.height(8.dp))
         LazyRow(modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(start = 11.dp)){
             items(sale){
-                SaleItem(it)
+                SaleItem(it){ onClick(it) }
             }
         }
     }
 }
 
 @Composable
-fun SaleItem(item: FlashSale){
+fun SaleItem(item: FlashSale, onClick: () -> Unit){
     Box(modifier = Modifier
         .padding(end = 9.dp)
-        .width(174.dp)
         .height(221.dp)
+        .width(174.dp)
         .clip(RoundedCornerShape(11.dp))
+        .clickable {  onClick() }
 
     ) {
         AsyncImage(model = item.image_url, contentDescription = "image latest", contentScale = ContentScale.Crop)

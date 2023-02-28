@@ -1,10 +1,11 @@
 package com.example.database.repository
 
 import com.example.database.entity.User
+import kotlinx.coroutines.flow.Flow
 
 
 interface UserRepository {
-    suspend fun getUserByFirstName(firstName:String) : User?
+    fun getUserByFirstName(firstName:String) : Flow<User?>
 
     suspend fun insertUser(user: User)
 
@@ -13,7 +14,7 @@ interface UserRepository {
     suspend fun updateAvatar(user: User)
 
 
-    suspend fun getCurrentUser(): String
+    fun getCurrentUser(): Flow<String>
     suspend fun putCurrentUser(firstName: String)
     suspend fun logout()
 }

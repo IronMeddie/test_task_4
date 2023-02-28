@@ -4,13 +4,17 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.database.entity.User
-import com.example.feature_f.domain.usecase.GetCurrentUser
-import com.example.feature_f.domain.usecase.GetLatest
-import com.example.feature_f.domain.usecase.GetSale
+import com.example.domain.use_cases.GetCurrentUser
+import com.example.domain.use_cases.GetLatest
+import com.example.domain.use_cases.GetSale
+import com.example.domain.use_cases.Search
+import com.example.feature_f.R
 import com.example.models.FlashSale
 import com.example.models.Latest
 import com.example.remote.data.remote.DataResource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,59 +23,94 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val currentUserUC: GetCurrentUser,
     private val latestUC: GetLatest,
-    private val saleUC: GetSale
+    private val saleUC: GetSale,
+    private val searchUC: Search
 ) : ViewModel() {
 
 
     private val _search = MutableStateFlow("")
     val search = _search.asStateFlow()
 
-    private val _latest = MutableStateFlow<DataResource<List<Latest>>>(DataResource.Loading)
-    val latest = _latest.asStateFlow()
-
-    private val _sale = MutableStateFlow<DataResource<List<FlashSale>>>(DataResource.Loading)
-    val sale = _sale.asStateFlow()
-
     private val _user = MutableStateFlow<DataResource<User?>>(DataResource.Loading)
     val user = _user.asStateFlow()
 
+    private val _state = MutableStateFlow<DataResource<HomeScreenState>>(DataResource.Loading)
+    val state = _state.asStateFlow()
 
+    private val _searchWords = MutableStateFlow<List<String>>(emptyList())
+    val searchWords = _searchWords.asStateFlow()
 
     init {
         getCurrentUser()
-        getLatest()
-        getSale()
+        getHomeScreen()
     }
 
     fun getCurrentUser() {
         viewModelScope.launch {
-            val resp = currentUserUC()
-            _user.emit(DataResource.Success(resp))
-            Log.d("checkCodeHomeViewModel", resp?.firstName ?: "user is null" )
+            currentUserUC().collectLatest {
+                _user.emit(DataResource.Success(it))
+                Log.d("checkCodeHomeViewModel", it?.firstName ?: "user is null")
+            }
         }
     }
 
-    fun getLatest() {
-        latestUC().onEach {
-            _latest.value = it
-        }.launchIn(viewModelScope)
+    fun getHomeScreen() {
+        viewModelScope.launch {
+            latestUC().combine(saleUC()) { latest, sale ->
+                when (latest) {
+                    is DataResource.Success -> {
+                        when (sale) {
+                            is DataResource.Success -> _state.value = DataResource.Success(
+                                HomeScreenState(
+                                    latest = latest.data,
+                                    sale = sale.data,
+                                    brands = getBrands()
+                                )
+                            )
+                            is DataResource.Failure -> _state.value = sale
+                            is DataResource.Loading -> Unit
+                        }
+                    }
+                    is DataResource.Failure -> _state.value = latest
+                    is DataResource.Loading -> Unit
+                }
+            }.collect()
+        }
     }
 
-    fun getSale() {
-        saleUC().onEach {
-            _sale.value = it
-        }.launchIn(viewModelScope)
-    }
 
+    private var job: Job? = null
     fun updateSearch(str: String) {
         if (!str.contains("\n")) _search.value = str
+        job?.cancel()
+        job = viewModelScope.launch {
+            _searchWords.value = emptyList()
+            if (str.isNotEmpty()) {
+                delay(1000)
+                searchUC(str).collect {
+                    Log.d("checkCodeHomeViewModelSearch", it.toString())
+                    _searchWords.value = it
+                }
+            }
+        }
     }
 
 }
 
-sealed class AuthState(){
-   object Loading : AuthState()
-   object Authorizated : AuthState()
-   object NotAuthorizated : AuthState()
-}
+data class HomeScreenState(
+    val sale: List<FlashSale> = emptyList(),
+    val latest: List<Latest> = emptyList(),
+    val brands: List<Brand> = emptyList(),
+)
+
+private fun getBrands() = listOf<Brand>(
+    Brand("Reebok", R.drawable.brand_1),
+    Brand("BMW", R.drawable.brand_2),
+    Brand("Samsung", R.drawable.brand_3),
+    Brand("Apple", R.drawable.brand_3),
+)
+
+data class Brand(val title: String, val imageUrl: Int)
+
+
 

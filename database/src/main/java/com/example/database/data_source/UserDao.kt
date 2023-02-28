@@ -2,12 +2,13 @@ package com.example.database.data_source
 
 import androidx.room.*
 import com.example.database.entity.User
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
 
     @Query("SELECT * FROM user WHERE firstName = :firstName")
-    suspend fun getUserByFirstName(firstName: String): User?
+    fun getUserByFirstName(firstName: String): Flow<User?>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insertUser(user: User)

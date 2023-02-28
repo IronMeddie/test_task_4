@@ -21,6 +21,7 @@ fun SearchPanel(
     hint: String,
     onValueChange: (String) -> Unit
 ) {
+
     Box(modifier = modifier, contentAlignment = Alignment.Center) {
         BasicTextField(
             value = value,
@@ -42,5 +43,6 @@ fun SearchPanel(
                 .padding(end = 7.dp)
                 .padding(8.dp)
         )
+
     }
 }

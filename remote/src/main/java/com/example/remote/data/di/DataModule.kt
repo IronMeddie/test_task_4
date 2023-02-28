@@ -5,7 +5,7 @@ import android.content.pm.ApplicationInfo
 import com.example.remote.data.remote.ApiService
 import com.example.remote.data.remote.NetworkConnectionInterceptor
 import com.example.remote.data.repository.ApiRepositoryImpl
-import com.example.remote.data.repository.RepositoryLatest
+import com.example.remote.data.repository.ApiRepository
 import com.example.remote.data.utils.Constance
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -58,7 +58,7 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideProductsRepository(api: ApiService) : RepositoryLatest {
+    fun provideProductsRepository(api: ApiService) : ApiRepository {
         return ApiRepositoryImpl(api)
     }
 

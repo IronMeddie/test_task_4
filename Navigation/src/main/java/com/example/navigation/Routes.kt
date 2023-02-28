@@ -8,4 +8,7 @@ object Routes{
     const val Cart:String = "cart_route"
     const val SignIn:String = "sign_in_route"
     const val LogIn:String = "sign_up_route"
+    const val Details:String = "details_route"
+    const val LoginGraph:String = "login_graph"
+    const val MainGraph:String = "main_graph"
 }

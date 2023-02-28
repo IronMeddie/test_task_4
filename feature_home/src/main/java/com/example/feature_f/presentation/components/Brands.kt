@@ -26,13 +26,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.feature_f.R
+import com.example.feature_f.presentation.Brand
 
 import com.example.theme.AppIconButton
 import com.example.theme.CatBack
 import com.example.theme.IconButton
 
 @Composable
-fun Brands(brands: List<Brand> = getBrands()) {
+fun Brands(brands: List<Brand>) {
     Column {
         PartHeader(stringResource(R.string.brands)){ }
         Spacer(modifier = Modifier.height(8.dp))
@@ -83,10 +84,3 @@ fun BrandItem(item: Brand){
     }
 }
 
-fun getBrands() = listOf<Brand>(
-    Brand("Reebok", R.drawable.brand_1),
-    Brand("BMW", R.drawable.brand_2),
-    Brand("Samsung", R.drawable.brand_3),
-)
-
-data class Brand(val title: String, val imageUrl: Int)

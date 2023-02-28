@@ -10,33 +10,43 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 
-fun NavController.navigateToLoginScreen(nanOptions: NavOptions? = null){
-    this.navigate(Routes.SignIn, nanOptions)
+fun NavController.navigateToLoginScreen(nanOptions: NavOptions? = NavOptions.Builder().setPopUpTo(this.graph.id, true, false)
+    .setLaunchSingleTop(true).build()) {
+    this.navigate(Routes.LoginGraph, nanOptions)
 }
 
-fun NavController.navigateToSignUp(navOptions: NavOptions? = null){
-    this.navigate(Routes.LogIn)
+fun NavController.navigateToSignUp(navOptions: NavOptions? = null) {
+    this.navigate(Routes.LogIn, navOptions)
 }
 
-fun NavController.navigateToMainScreen(navOptions: NavOptions? = NavOptions.Builder().setPopUpTo(this.graph.id, true, true)
-    .setLaunchSingleTop(true).build()){
-    this.navigate(Routes.Home)
+fun NavController.navigateToMainScreen(
+    navOptions: NavOptions? = NavOptions.Builder().setPopUpTo(this.graph.id, true, false)
+        .setLaunchSingleTop(true).build()
+) {
+    this.navigate(Routes.MainGraph, navOptions)
 }
 
-fun  NavGraphBuilder.OTHER(){
-    composable(Routes.Messages){
+fun NavController.navigateToDetails(
+    navOptions: NavOptions? = null
+) {
+    this.navigate(Routes.Details, navOptions)
+}
+
+fun NavGraphBuilder.OTHER() {
+    composable(Routes.Messages) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Text(text = "Messages Screen")
         }
     }
-    composable(Routes.Cart){
+    composable(Routes.Cart) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Text(text = "Cart Screen")
         }
     }
-    composable(Routes.Favorite){
+    composable(Routes.Favorite) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             Text(text = "Favorite Screen")
         }
     }
 }
+

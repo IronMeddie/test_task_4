@@ -1,6 +1,7 @@
 package com.example.feature_f.presentation.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -29,20 +30,20 @@ import com.example.theme.AppIconButton
 import com.example.theme.CatBack
 
 @Composable
-fun Latest(list : List<Latest>) {
+fun Latest(list : List<Latest>, onClick: (Latest) -> Unit) {
     Column {
         PartHeader(stringResource(R.string.latest)){ }
         Spacer(modifier = Modifier.height(8.dp))
         LazyRow(modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(start = 11.dp)){
             items(list){
-                LatestItem(it)
+                LatestItem(it){ onClick(it) }
             }
         }
     }
 }
 
 @Composable
-fun LatestItem(item: Latest){
+fun LatestItem(item: Latest, onClick : () -> Unit){
 
     Box(modifier = Modifier
         .padding(end = 12.dp)
@@ -50,6 +51,7 @@ fun LatestItem(item: Latest){
         .height(149.dp)
         .clip(RoundedCornerShape(9.dp))
         .background(Color.White)
+        .clickable { onClick() }
         ) {
         AsyncImage(model = item.image_url, contentDescription = "image latest", contentScale = ContentScale.Crop)
        Column(modifier = Modifier.padding(start = 7.dp, bottom = 7.dp, top = 91.dp)) {
