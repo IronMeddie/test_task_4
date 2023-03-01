@@ -102,9 +102,7 @@ fun ProfileScreen(navController: NavController, viewModel: ProfileViewModel = hi
             item {
                 Button(
                     onClick = {
-//                        contract.launch(
-//                            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly),
-//                        )
+
                     }, modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 43.dp)

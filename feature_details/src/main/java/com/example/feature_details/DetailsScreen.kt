@@ -12,7 +12,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.feature_details.compoments.BottomAddToCartLayout
+import com.example.feature_details.compoments.DetailsImagePager
 import com.example.feature_details.compoments.InfoAndColor
+import com.example.feature_details.compoments.SmalImagePager
 import com.example.remote.data.remote.DataResource
 import com.example.theme.*
 import com.google.accompanist.pager.ExperimentalPagerApi

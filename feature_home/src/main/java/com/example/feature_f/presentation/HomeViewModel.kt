@@ -1,6 +1,5 @@
 package com.example.feature_f.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.database.entity.User
@@ -49,7 +48,6 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             currentUserUC().collectLatest {
                 _user.emit(DataResource.Success(it))
-                Log.d("checkCodeHomeViewModel", it?.firstName ?: "user is null")
             }
         }
     }
@@ -88,7 +86,6 @@ class HomeViewModel @Inject constructor(
             if (str.isNotEmpty()) {
                 delay(1000)
                 searchUC(str).collect {
-                    Log.d("checkCodeHomeViewModelSearch", it.toString())
                     _searchWords.value = it
                 }
             }

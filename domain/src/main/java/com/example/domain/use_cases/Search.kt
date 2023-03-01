@@ -1,6 +1,5 @@
 package com.example.domain.use_cases
 
-import android.util.Log
 import com.example.remote.data.remote.DataResource
 import com.example.remote.data.repository.ApiRepository
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +12,6 @@ class Search @Inject constructor(private val repository: ApiRepository) {
             if (it is DataResource.Success) {
                 it.data.filter { it.contains(string, true) }
             } else {
-                if (it is DataResource.Failure) Log.d("checkCodeSearchUC", it.errorBody)
                 emptyList()
             }
         }

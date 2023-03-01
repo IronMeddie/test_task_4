@@ -1,4 +1,4 @@
-package com.example.feature_details
+package com.example.feature_details.compoments
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,7 +16,6 @@ import androidx.compose.ui.layout.lerp
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.feature_details.compoments.FavoriteShareButtons
 import com.example.theme.AppIconButton
 import com.example.theme.dimens
 import com.google.accompanist.pager.*

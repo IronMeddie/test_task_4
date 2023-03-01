@@ -1,7 +1,6 @@
 package com.example.database.data_source
 
 import android.content.Context
-import android.util.Log
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
@@ -17,7 +16,6 @@ class UserSP @Inject constructor(context: Context) {
     }
 
     fun logOut(){
-        Log.d("checkCodeLogOut", "loging out")
         sharedPref.edit().putString("currentUser", USER_IS_NULL).apply()
     }
 
