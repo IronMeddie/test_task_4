@@ -75,7 +75,7 @@ fun MyNavHost(viewModel: CheckAuthViewModel = hiltViewModel()) {
                 is AuthState.NotAuthorizated ->{
                     navController.navigateToLoginScreen()
                 }
-                else -> Log.d("checkCodeNavGraph", "state is: $state")
+                else -> Log.d("checkCodeNavHost", "state is: $state")
             }
         }
     }
