@@ -96,7 +96,7 @@ fun MyNavHost(viewModel: CheckAuthViewModel = hiltViewModel()) {
 
         NavHost(
             navController = navController,
-            startDestination = Routes.SplashGraph, modifier = Modifier.padding(if (currentDestination?.route != Routes.Details)paddings else PaddingValues(0.dp))  // в большинстве случаев экран заканчивается там, где начинается боттом меню, но в детайлс это уберем, чтоб сделать эффект когда боттом меню накладывается сверху. Так можно для всех экранов, но тогда в каждом нужно будет прописать паддинг снизу чтоб меню не загораживало контент
+            startDestination = Routes.SplashGraph, modifier = Modifier.padding(if (currentDestination?.route != Routes.Details)paddings else PaddingValues(0.dp))  // в большинстве случаев экран заканчивается там, где начинается боттом меню, но в детайлс это уберем, чтоб сделать эффект когда боттом меню накладывается сверху. Так можно для всех экранов, но тогда в каждом нужно будет прописать spacer снизу чтоб меню не загораживало контент
         ) {
             navigation(startDestination = Routes.SignIn, route = Routes.LoginGraph) {
                 composable(Routes.SignIn) {
