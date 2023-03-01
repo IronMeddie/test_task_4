@@ -42,6 +42,7 @@ import com.example.theme.*
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -69,16 +70,12 @@ fun MyNavHost(viewModel: CheckAuthViewModel = hiltViewModel()) {
 
 
     LaunchedEffect(true) {
-        viewModel.getUser().collectLatest { state->
-            Log.d("asdasdasdasflkfjhl;fgsjkdfgkjh" , "safasfasf $state")
+        viewModel.getUser().collect { state->
             when(state){
                 is AuthState.NotAuthorizated ->{
                     navController.navigateToLoginScreen()
                 }
-                is AuthState.Authorizated->{
-                    navController.navigateToMainScreen()
-                }
-                else -> Log.d("checkCodesadsad", "safasfasf $state")
+                else -> Log.d("checkCodeNavGraph", "state is: $state")
             }
         }
     }
@@ -96,7 +93,7 @@ fun MyNavHost(viewModel: CheckAuthViewModel = hiltViewModel()) {
 
         NavHost(
             navController = navController,
-            startDestination = Routes.SplashGraph, modifier = Modifier.padding(if (currentDestination?.route != Routes.Details)paddings else PaddingValues(0.dp))  // в большинстве случаев экран заканчивается там, где начинается боттом меню, но в детайлс это уберем, чтоб сделать эффект когда боттом меню накладывается сверху. Так можно для всех экранов, но тогда в каждом нужно будет прописать spacer снизу чтоб меню не загораживало контент
+            startDestination = Routes.MainGraph, modifier = Modifier.padding(if (currentDestination?.route != Routes.Details)paddings else PaddingValues(0.dp))  // в большинстве случаев экран заканчивается там, где начинается боттом меню, но в детайлс это уберем, чтоб сделать эффект когда боттом меню накладывается сверху. Так можно для всех экранов, но тогда в каждом нужно будет прописать spacer снизу чтоб меню не загораживало контент
         ) {
             navigation(startDestination = Routes.SignIn, route = Routes.LoginGraph) {
                 composable(Routes.SignIn) {
@@ -193,7 +190,7 @@ fun getMenu() = listOf(
 @HiltViewModel
 class CheckAuthViewModel @Inject constructor(private val isAuth: IsAuth) :
     ViewModel() {
-    fun getUser() = isAuth.invoke()
+    fun getUser() = isAuth()
 }
 
 
