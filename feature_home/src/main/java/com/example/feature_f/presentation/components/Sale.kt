@@ -27,10 +27,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.feature_f.R
 import com.example.models.FlashSale
-import com.example.theme.AppIconButton
-import com.example.theme.CatBack
-import com.example.theme.Discont
-import com.example.theme.IconButton
+import com.example.theme.*
 
 @Composable
 fun Sale(sale: List<FlashSale>, onClick: (FlashSale) -> Unit) {
@@ -49,8 +46,8 @@ fun Sale(sale: List<FlashSale>, onClick: (FlashSale) -> Unit) {
 fun SaleItem(item: FlashSale, onClick: () -> Unit){
     Box(modifier = Modifier
         .padding(end = 9.dp)
-        .height(221.dp)
-        .width(174.dp)
+        .height(MaterialTheme.dimens.SaleItemHeight)
+        .width(MaterialTheme.dimens.SaleItemWidth)
         .clip(RoundedCornerShape(11.dp))
         .clickable {  onClick() }
 
@@ -77,7 +74,7 @@ fun SaleItem(item: FlashSale, onClick: () -> Unit){
                 .clip(
                     CircleShape
                 )
-                .size(28.dp)
+                .size(MaterialTheme.dimens.SaleFavoriteButtonSize)
                 .background(AppIconButton)) {
                 Icon(imageVector = Icons.Default.FavoriteBorder, contentDescription = "add to favorite", modifier = Modifier.size(12.dp), tint = IconButton )
             }
@@ -87,7 +84,7 @@ fun SaleItem(item: FlashSale, onClick: () -> Unit){
                 .clip(
                     CircleShape
                 )
-                .size(35.dp)
+                .size(MaterialTheme.dimens.SaleAddButtonSize)
                 .background(AppIconButton)) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "add to cart button latest", modifier = Modifier.size(13.dp), tint = IconButton )
             }
@@ -101,13 +98,11 @@ fun SaleItem(item: FlashSale, onClick: () -> Unit){
         }
 
         Box(modifier = Modifier
-
             .padding(top = 7.dp, end = 8.dp)
             .clip(RoundedCornerShape(9.dp))
             .background(Discont)
             .width(46.dp)
             .height(18.dp)
-
             .align(Alignment.TopEnd), contentAlignment = Alignment.Center
         ) {
             Text(text = item.discount.toString() + "% off", style = MaterialTheme.typography.h2, fontWeight = FontWeight.W600, color = Color.White, fontSize = 10.sp)

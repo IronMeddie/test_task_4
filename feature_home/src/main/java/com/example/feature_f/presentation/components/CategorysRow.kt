@@ -14,14 +14,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.feature_f.R
-import com.example.theme.CategoryTerxt
+import com.example.theme.CategoryText
 import com.example.theme.GreyIconBack
+import com.example.theme.textStyles
 
 @Composable
 fun CategoryRow() {
@@ -53,9 +51,7 @@ fun CategoryItem(category: Category) {
         Spacer(modifier = Modifier.height(11.dp))
         Text(
             text = category.title,
-            fontSize = 8.sp,
-            style = MaterialTheme.typography.h2,
-            color = CategoryTerxt
+            style = MaterialTheme.textStyles.CategoryName,
         )
     }
 }

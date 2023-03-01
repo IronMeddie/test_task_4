@@ -11,4 +11,6 @@ object Routes{
     const val Details:String = "details_route"
     const val LoginGraph:String = "login_graph"
     const val MainGraph:String = "main_graph"
+    const val Splash:String = "Splash_screen_route"
+    const val SplashGraph:String = "splash_graph_route"
 }

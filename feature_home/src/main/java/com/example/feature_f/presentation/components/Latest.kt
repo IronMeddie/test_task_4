@@ -28,6 +28,7 @@ import com.example.feature_f.R
 import com.example.models.Latest
 import com.example.theme.AppIconButton
 import com.example.theme.CatBack
+import com.example.theme.dimens
 
 @Composable
 fun Latest(list : List<Latest>, onClick: (Latest) -> Unit) {
@@ -47,8 +48,8 @@ fun LatestItem(item: Latest, onClick : () -> Unit){
 
     Box(modifier = Modifier
         .padding(end = 12.dp)
-        .width(114.dp)
-        .height(149.dp)
+        .width(MaterialTheme.dimens.LatestItemWidth)
+        .height(MaterialTheme.dimens.LatestItemHeight)
         .clip(RoundedCornerShape(9.dp))
         .background(Color.White)
         .clickable { onClick() }
@@ -69,7 +70,7 @@ fun LatestItem(item: Latest, onClick : () -> Unit){
        } 
         
         IconButton(onClick = { /*TODO*/ }, modifier = Modifier.align(Alignment.BottomEnd).padding(5.dp).clip(
-            CircleShape).size(20.dp).background(AppIconButton)) {
+            CircleShape).size(MaterialTheme.dimens.LatestAddButtonSize).background(AppIconButton)) {
             Icon(imageVector = Icons.Default.Add, contentDescription = "add to cart button latest", modifier = Modifier.size(8.dp), tint = com.example.theme.IconButton )
         }
     }

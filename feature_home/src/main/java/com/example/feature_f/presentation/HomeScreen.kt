@@ -82,11 +82,12 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
             Column(modifier = Modifier.align(Alignment.TopCenter).padding(32.dp).fillMaxWidth().padding(top = 75.dp).shadow(4.dp, MaterialTheme.shapes.medium).clip(MaterialTheme.shapes.medium).background(MaterialTheme.colors.background)) {
                 words.forEach { label ->
                     Box(modifier = Modifier
-                        .padding(horizontal = 16.dp, vertical = 4.dp)
+                        .fillMaxWidth()
                         .clickable {
                             viewModel.updateSearch(label)
                             isExpanded = false
                         }
+                        .padding(horizontal = 16.dp, vertical = 4.dp)
                     ) {
                         Text(text = label, style = MaterialTheme.typography.h2)
                     }

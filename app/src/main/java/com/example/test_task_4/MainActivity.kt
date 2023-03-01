@@ -2,6 +2,7 @@ package com.example.test_task_4
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -12,10 +13,7 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,23 +37,20 @@ import com.example.feature_sign_in.screens.welcome_back.SignUpScreen
 import com.example.navigation.OTHER
 import com.example.navigation.Routes
 import com.example.navigation.navigateToLoginScreen
-import com.example.theme.GreyIcon
-import com.example.theme.GreyIconBack
-import com.example.theme.SelectedIcon
-import com.example.theme.Test_task_4Theme
+import com.example.navigation.navigateToMainScreen
+import com.example.theme.*
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             Test_task_4Theme {
                 MyNavHost()
@@ -70,33 +65,40 @@ fun MyNavHost(viewModel: CheckAuthViewModel = hiltViewModel()) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    val state = viewModel.authState.collectAsState().value
 
-    when (state) {
-        is AuthState.Loading -> {
-            SplashScreen()
+
+
+    LaunchedEffect(true) {
+        viewModel.getUser().collectLatest { state->
+            Log.d("asdasdasdasflkfjhl;fgsjkdfgkjh" , "safasfasf $state")
+            when(state){
+                is AuthState.NotAuthorizated ->{
+                    navController.navigateToLoginScreen()
+                }
+                is AuthState.Authorizated->{
+                    navController.navigateToMainScreen()
+                }
+                else -> Log.d("checkCodesadsad", "safasfasf $state")
+            }
         }
-        is AuthState.NotAuthorizated -> {
-            LaunchedEffect(key1 = true) { navController.navigateToLoginScreen() }
-        }
-        else -> Unit
     }
+
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
 
-            if (currentDestination?.route in getMenu().map { it.route } || currentDestination?.route == Routes.Details )
+            if (currentDestination?.route in getMenu().map { it.route } || currentDestination?.route == Routes.Details)
                 BottomNavMenu(navController = navController)
         }
-    ) { _->
+    ) { paddings->
 
 
         NavHost(
             navController = navController,
-            startDestination = Routes.MainGraph,
+            startDestination = Routes.SplashGraph, modifier = Modifier.padding(if (currentDestination?.route != Routes.Details)paddings else PaddingValues(0.dp))  // в большинстве случаев экран заканчивается там, где начинается боттом меню, но в детайлс это уберем, чтоб сделать эффект когда боттом меню накладывается сверху. Так можно для всех экранов, но тогда в каждом нужно будет прописать паддинг снизу чтоб меню не загораживало контент
         ) {
-            navigation(startDestination = Routes.SignIn, route = Routes.LoginGraph){
+            navigation(startDestination = Routes.SignIn, route = Routes.LoginGraph) {
                 composable(Routes.SignIn) {
                     SignInScreen(navController = navController)
                 }
@@ -104,7 +106,7 @@ fun MyNavHost(viewModel: CheckAuthViewModel = hiltViewModel()) {
                     SignUpScreen(navController = navController)
                 }
             }
-            navigation(startDestination = Routes.Home, route = Routes.MainGraph){
+            navigation(startDestination = Routes.Home, route = Routes.MainGraph) {
                 composable(Routes.Home) {
                     HomeScreen(navController)
                 }
@@ -115,6 +117,11 @@ fun MyNavHost(viewModel: CheckAuthViewModel = hiltViewModel()) {
                     DetailsScreen(navController)
                 }
                 OTHER()
+            }
+            navigation(startDestination = Routes.Splash, route = Routes.SplashGraph) {
+                composable(Routes.Splash) {
+                    SplashScreen()
+                }
             }
         }
     }
@@ -133,7 +140,7 @@ fun BottomNavMenu(navController: NavController) {
         Modifier
             .clip(MaterialTheme.shapes.medium)
             .fillMaxWidth()
-            .height(63.dp)
+            .height(MaterialTheme.dimens.BottomMenuHeight)
             .background(MaterialTheme.colors.onSurface)
             .padding(vertical = 13.dp),
         horizontalArrangement = Arrangement.SpaceEvenly,
@@ -186,21 +193,7 @@ fun getMenu() = listOf(
 @HiltViewModel
 class CheckAuthViewModel @Inject constructor(private val isAuth: IsAuth) :
     ViewModel() {
-
-
-    private val _authState = MutableStateFlow<AuthState>(AuthState.Loading)
-    val authState = _authState.asStateFlow()
-
-    init {
-        getUser()
-    }
-
-    fun getUser() =
-        isAuth().onEach {
-          _authState.value = it
-        }.launchIn(viewModelScope)
-
-
+    fun getUser() = isAuth.invoke()
 }
 
 
