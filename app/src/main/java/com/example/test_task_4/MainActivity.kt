@@ -115,11 +115,6 @@ fun MyNavHost(viewModel: CheckAuthViewModel = hiltViewModel()) {
                 }
                 OTHER()
             }
-            navigation(startDestination = Routes.Splash, route = Routes.SplashGraph) {
-                composable(Routes.Splash) {
-                    SplashScreen()
-                }
-            }
         }
     }
 
