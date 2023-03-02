@@ -43,7 +43,6 @@ dependencies {
     implementation project(path: ':models')
     implementation project(path: ':domain')
     implementation project(path: ':theme')
-    implementation project(path: ':remote')
     implementation project(path: ':Navigation')
 
     implementation "androidx.core:core-ktx:$core_ktx"
