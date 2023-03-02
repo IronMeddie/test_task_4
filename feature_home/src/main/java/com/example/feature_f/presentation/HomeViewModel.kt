@@ -2,7 +2,6 @@ package com.example.feature_f.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.database.entity.User
 import com.example.domain.use_cases.GetCurrentUser
 import com.example.domain.use_cases.GetLatest
 import com.example.domain.use_cases.GetSale
@@ -10,6 +9,7 @@ import com.example.domain.use_cases.Search
 import com.example.feature_f.R
 import com.example.models.FlashSale
 import com.example.models.Latest
+import com.example.models.User
 import com.example.remote.data.remote.DataResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job

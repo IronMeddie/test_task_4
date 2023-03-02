@@ -2,11 +2,11 @@ package com.example.feature_sign_in.screens.sign_in
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.database.entity.User
 import com.example.domain.use_cases.InsertUserToDB
 import com.example.domain.use_cases.NewCurrentUser
 import com.example.feature_sign_in.screens.welcome_back.Logged
 import com.example.feature_sign_in.utils.isEmail
+import com.example.models.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -43,7 +43,6 @@ dependencies {
     implementation project(path: ':models')
     implementation project(path: ':domain')
     implementation project(path: ':theme')
-    implementation project(path: ':database')
     implementation project(path: ':remote')
     implementation project(path: ':Navigation')
 

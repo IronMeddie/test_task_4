@@ -22,8 +22,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
-import com.example.database.entity.User
 import com.example.feature_f.R
+import com.example.models.User
 import com.example.theme.GreyBorder
 import com.example.theme.GreyTextLoc
 

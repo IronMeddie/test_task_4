@@ -1,11 +1,9 @@
 package com.example.domain.use_cases
 
-import com.example.database.data_source.UserSP
-import com.example.database.entity.User
 import com.example.database.repository.UserRepository
+import com.example.models.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 

@@ -3,10 +3,10 @@ package com.example.feature_profile
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.database.entity.User
 import com.example.domain.use_cases.GetCurrentUser
 import com.example.domain.use_cases.LogOut
 import com.example.domain.use_cases.UpdateAvatar
+import com.example.models.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
