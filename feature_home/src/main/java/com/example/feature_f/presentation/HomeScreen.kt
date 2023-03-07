@@ -20,8 +20,8 @@ import androidx.navigation.NavController
 import com.example.feature_f.R
 import com.example.feature_f.presentation.components.*
 import com.example.navigation.navigateToDetails
-import com.example.remote.data.remote.DataResource
 import com.example.theme.SearchField
+import com.example.utils.DataResource
 
 
 @Composable

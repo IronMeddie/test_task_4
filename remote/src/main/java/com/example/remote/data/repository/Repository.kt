@@ -3,7 +3,7 @@ package com.example.remote.data.repository
 import com.example.models.Details
 import com.example.models.FlashSale
 import com.example.models.Latest
-import com.example.remote.data.remote.DataResource
+import com.example.utils.DataResource
 import kotlinx.coroutines.flow.Flow
 
 interface ApiRepository  {

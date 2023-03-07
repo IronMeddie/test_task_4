@@ -1,6 +1,6 @@
 package com.example.domain.use_cases
 
-import com.example.remote.data.remote.DataResource
+import com.example.utils.DataResource
 import com.example.remote.data.repository.ApiRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

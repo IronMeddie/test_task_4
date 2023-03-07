@@ -1,4 +1,4 @@
-package com.example.remote.data.remote
+package com.example.utils
 
 sealed class DataResource<out T> {
     data class Success<out T>(val data: T) : DataResource<T>()

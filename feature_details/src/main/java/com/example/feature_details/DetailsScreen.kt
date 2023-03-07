@@ -15,8 +15,8 @@ import com.example.feature_details.compoments.BottomAddToCartLayout
 import com.example.feature_details.compoments.DetailsImagePager
 import com.example.feature_details.compoments.InfoAndColor
 import com.example.feature_details.compoments.SmalImagePager
-import com.example.remote.data.remote.DataResource
 import com.example.theme.*
+import com.example.utils.DataResource
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.isActive

@@ -10,7 +10,7 @@ import com.example.feature_f.R
 import com.example.models.FlashSale
 import com.example.models.Latest
 import com.example.models.User
-import com.example.remote.data.remote.DataResource
+import com.example.utils.DataResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

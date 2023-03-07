@@ -1,15 +1,11 @@
 package com.example.remote.data.repository
 
-import android.util.Log
-import com.example.remote.data.remote.DataResource
+import com.example.utils.DataResource
 import com.example.remote.data.utils.Constance
-import com.google.gson.Gson
-import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
 import retrofit2.HttpException
 
 interface BaseRepository {
