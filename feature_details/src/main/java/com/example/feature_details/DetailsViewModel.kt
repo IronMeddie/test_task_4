@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailsViewModel @Inject constructor(private val getDetails : GetDetails) : ViewModel() {
+class DetailsViewModel @Inject constructor(private val getDetails: GetDetails) : ViewModel() {
 
     private val _details = MutableStateFlow<DataResource<Details>>(DataResource.Loading)
     val details = _details.asStateFlow()
@@ -22,7 +22,7 @@ class DetailsViewModel @Inject constructor(private val getDetails : GetDetails) 
         loadDetails()
     }
 
-    fun loadDetails(){
+    fun loadDetails() {
         viewModelScope.launch {
             getDetails().collectLatest {
                 _details.value = it

@@ -10,8 +10,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 
-fun NavController.navigateToLoginScreen(nanOptions: NavOptions? = NavOptions.Builder().setPopUpTo(this.graph.id, true, false)
-    .setLaunchSingleTop(true).build()) {
+fun NavController.navigateToLoginScreen(
+    nanOptions: NavOptions? = NavOptions.Builder().setPopUpTo(this.graph.id, true, false)
+        .setLaunchSingleTop(true).build()
+) {
     this.navigate(Routes.LoginGraph, nanOptions)
 }
 

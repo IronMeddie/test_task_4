@@ -16,9 +16,19 @@ import com.example.feature_f.R
 import com.example.theme.OnotherOneGrey
 
 @Composable
-fun PartHeader(title: String, onClikViewAll : () -> Unit) {
-    Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 11.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+fun PartHeader(title: String, onClikViewAll: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 11.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
         Text(text = title, style = MaterialTheme.typography.h2)
-        Text(text = stringResource(R.string.view_all), modifier = Modifier.clickable { onClikViewAll() } , style = MaterialTheme.typography.h2, fontSize = 9.sp, color = OnotherOneGrey)
+        Text(
+            text = stringResource(R.string.view_all),
+            modifier = Modifier.clickable { onClikViewAll() },
+            style = MaterialTheme.typography.h2,
+            fontSize = 9.sp,
+            color = OnotherOneGrey)
     }
 }

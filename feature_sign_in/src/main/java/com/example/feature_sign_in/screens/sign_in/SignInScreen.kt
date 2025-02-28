@@ -4,12 +4,26 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,7 +34,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import com.example.feature_sign_in.R
 import com.example.feature_sign_in.screens.welcome_back.Logged
 import com.example.navigation.navigateToMainScreen
@@ -31,22 +44,21 @@ import com.example.theme.GreyText
 import kotlinx.coroutines.flow.collectLatest
 
 
-
-
 @Composable
 fun SignInScreen(navController: NavController, viewModel: SignInViewModel = hiltViewModel()) {
     val firstName = viewModel.firstName.collectAsState().value
     val lastName = viewModel.lastName.collectAsState().value
     val email = viewModel.email.collectAsState().value
 
-    var isError by remember{ mutableStateOf("") }
-    LaunchedEffect(key1 = true){
+    var isError by remember { mutableStateOf("") }
+    LaunchedEffect(key1 = true) {
         viewModel.eventFLow.collectLatest { logged ->
-            when(logged){
-                is Logged.Success ->{
+            when (logged) {
+                is Logged.Success -> {
                     navController.navigateToMainScreen()
                 }
-                is Logged.Failure->{
+
+                is Logged.Failure -> {
                     isError = logged.message
                 }
             }
@@ -68,7 +80,7 @@ fun SignInScreen(navController: NavController, viewModel: SignInViewModel = hilt
                     .height(29.dp)
                     .clip(MaterialTheme.shapes.medium)
                     .background(GreyField), stringResource(R.string.first_name)
-            ) {  viewModel.updateField(UpdateField.First(it))}
+            ) { viewModel.updateField(UpdateField.First(it)) }
             Spacer(modifier = Modifier.height(35.dp))
             MyTextField(
                 lastName, modifier = Modifier
@@ -76,7 +88,7 @@ fun SignInScreen(navController: NavController, viewModel: SignInViewModel = hilt
                     .height(29.dp)
                     .clip(MaterialTheme.shapes.medium)
                     .background(GreyField), stringResource(R.string.last_name)
-            ) { viewModel.updateField(UpdateField.Last(it))}
+            ) { viewModel.updateField(UpdateField.Last(it)) }
             Spacer(modifier = Modifier.height(35.dp))
             MyTextField(
                 email, modifier = Modifier
@@ -94,8 +106,8 @@ fun SignInScreen(navController: NavController, viewModel: SignInViewModel = hilt
             Spacer(modifier = Modifier.height(35.dp))
             Button(
                 onClick = {
-                          viewModel.insert()
-                          }, modifier = Modifier
+                    viewModel.insert()
+                }, modifier = Modifier
                     .fillMaxWidth()
                     .height(46.dp)
             ) {
@@ -128,7 +140,6 @@ fun SignInScreen(navController: NavController, viewModel: SignInViewModel = hilt
     }
 
 
-
 }
 
 
@@ -141,9 +152,11 @@ fun MyTextField(
 ) {
     Box(modifier = modifier, contentAlignment = Alignment.Center) {
         BasicTextField(
-            value = value, onValueChange = {
+            value = value,
+            onValueChange = {
                 onValueChange(it)
-            }, modifier = Modifier
+            },
+            modifier = Modifier
                 .matchParentSize()
                 .padding(horizontal = 16.dp, vertical = 6.dp),
         )

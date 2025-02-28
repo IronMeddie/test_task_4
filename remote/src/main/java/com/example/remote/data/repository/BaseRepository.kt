@@ -22,6 +22,7 @@ interface BaseRepository {
                                 throwable.message()
                             )
                         }
+
                         else -> {
                             if (throwable.message == Constance.NO_INTERNET) {
                                 DataResource.Failure(

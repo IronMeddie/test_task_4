@@ -6,5 +6,6 @@ sealed class DataResource<out T> {
         val errorCode: Int?,
         val errorBody: String,
     ) : DataResource<Nothing>()
+
     object Loading : DataResource<Nothing>()
 }

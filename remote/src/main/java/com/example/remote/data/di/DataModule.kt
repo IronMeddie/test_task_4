@@ -28,7 +28,9 @@ class DataModule {
     @Provides
     fun providesLoggingInterceptor(@ApplicationContext context: Context): HttpLoggingInterceptor {
         // check for debug or release
-        return if (context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0) HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        return if (context.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0) HttpLoggingInterceptor().setLevel(
+            HttpLoggingInterceptor.Level.BODY
+        )
         else HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
     }
 
@@ -38,7 +40,10 @@ class DataModule {
     }
 
     @Provides
-    fun providesOkHttpClient(logging: HttpLoggingInterceptor, networkConnectionInterceptor: NetworkConnectionInterceptor): OkHttpClient {
+    fun providesOkHttpClient(
+        logging: HttpLoggingInterceptor,
+        networkConnectionInterceptor: NetworkConnectionInterceptor
+    ): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(Constance.TIME_OUT_CONNECTION, TimeUnit.SECONDS)
             .readTimeout(Constance.TIME_OUT_CONNECTION, TimeUnit.SECONDS)
@@ -58,7 +63,7 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideProductsRepository(api: ApiService) : ApiRepository {
+    fun provideProductsRepository(api: ApiService): ApiRepository {
         return ApiRepositoryImpl(api)
     }
 
@@ -69,7 +74,10 @@ class DataModule {
     }
 
     @Provides
-    fun providesRetrofit(converterFactory: GsonConverterFactory, okHttpClient: OkHttpClient): Retrofit {
+    fun providesRetrofit(
+        converterFactory: GsonConverterFactory,
+        okHttpClient: OkHttpClient
+    ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(Constance.BASE_URL)
             .addConverterFactory(converterFactory)

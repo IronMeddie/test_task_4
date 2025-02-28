@@ -56,7 +56,8 @@ fun TopBarHome(user: User?) {
             IconButton(onClick = {
 
             }) {
-                val painter = rememberAsyncImagePainter(model =  if (user != null && user.avatar.isNotEmpty()) user.avatar else R.drawable.avatar  )
+                val painter =
+                    rememberAsyncImagePainter(model = if (user != null && user.avatar.isNotEmpty()) user.avatar else R.drawable.avatar)
                 Image(
                     painter,
                     contentDescription = "avatar",

@@ -35,13 +35,14 @@ class ProfileViewModel @Inject constructor(
             logOut.invoke()
         }
     }
-    fun getUser(){
+
+    private fun getUser() {
         getCurrentUser().onEach {
             _user.value = it
         }.launchIn(viewModelScope)
     }
 
-    fun saveAvatar(uri: Uri){
+    fun saveAvatar(uri: Uri) {
         viewModelScope.launch {
             val newUser = _user.value?.copy(avatar = uri.toString())
             updateAvatar(newUser ?: return@launch)

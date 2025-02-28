@@ -31,20 +31,20 @@ import com.example.theme.CatBack
 import com.example.theme.dimens
 
 @Composable
-fun Latest(list : List<Latest>, onClick: (Latest) -> Unit) {
+fun Latest(list: List<Latest>, onClick: (Latest) -> Unit) {
     Column {
-        PartHeader(stringResource(R.string.latest)){ }
+        PartHeader(stringResource(R.string.latest)) { }
         Spacer(modifier = Modifier.height(8.dp))
-        LazyRow(modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(start = 11.dp)){
-            items(list){
-                LatestItem(it){ onClick(it) }
+        LazyRow(modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(start = 11.dp)) {
+            items(list) {
+                LatestItem(it) { onClick(it) }
             }
         }
     }
 }
 
 @Composable
-fun LatestItem(item: Latest, onClick : () -> Unit){
+fun LatestItem(item: Latest, onClick: () -> Unit) {
 
     Box(modifier = Modifier
         .padding(end = 12.dp)
@@ -53,25 +53,64 @@ fun LatestItem(item: Latest, onClick : () -> Unit){
         .clip(RoundedCornerShape(9.dp))
         .background(Color.White)
         .clickable { onClick() }
-        ) {
-        AsyncImage(model = item.image_url, contentDescription = "image latest", contentScale = ContentScale.Crop)
-       Column(modifier = Modifier.padding(start = 7.dp, bottom = 7.dp, top = 91.dp)) {
-           Box(modifier = Modifier
-               .clip(RoundedCornerShape(5.dp))
-               .height(12.dp)
-               .background(CatBack), contentAlignment = Alignment.Center) {
-               Text(text = item.category, modifier = Modifier.padding(horizontal = 7.dp), style = MaterialTheme.typography.h2, fontSize = 6.sp, fontWeight = FontWeight.W600)
-           }
-           Spacer(modifier = Modifier.height(7.dp))
-           Text(text = item.name, modifier = Modifier.width(75.dp), style = MaterialTheme.typography.h2, fontWeight = FontWeight.W600, fontSize = 9.sp, color = MaterialTheme.colors.onSurface)
-           Spacer(modifier = Modifier.height(5.dp))
-           Text(text = "$ " +item.price, style = MaterialTheme.typography.h2, fontWeight = FontWeight.W600, fontSize = 7.sp , color = MaterialTheme.colors.onSurface)
+    ) {
+        AsyncImage(
+            model = item.image_url,
+            contentDescription = "image latest",
+            contentScale = ContentScale.Crop
+        )
+        Column(modifier = Modifier.padding(start = 7.dp, bottom = 7.dp, top = 91.dp)) {
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(5.dp))
+                    .height(12.dp)
+                    .background(CatBack), contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = item.category,
+                    modifier = Modifier.padding(horizontal = 7.dp),
+                    style = MaterialTheme.typography.h2,
+                    fontSize = 6.sp,
+                    fontWeight = FontWeight.W600
+                )
+            }
+            Spacer(modifier = Modifier.height(7.dp))
+            Text(
+                text = item.name,
+                modifier = Modifier.width(75.dp),
+                style = MaterialTheme.typography.h2,
+                fontWeight = FontWeight.W600,
+                fontSize = 9.sp,
+                color = MaterialTheme.colors.onSurface
+            )
+            Spacer(modifier = Modifier.height(5.dp))
+            Text(
+                text = "$ " + item.price,
+                style = MaterialTheme.typography.h2,
+                fontWeight = FontWeight.W600,
+                fontSize = 7.sp,
+                color = MaterialTheme.colors.onSurface
+            )
 
-       } 
-        
-        IconButton(onClick = { /*TODO*/ }, modifier = Modifier.align(Alignment.BottomEnd).padding(5.dp).clip(
-            CircleShape).size(MaterialTheme.dimens.LatestAddButtonSize).background(AppIconButton)) {
-            Icon(imageVector = Icons.Default.Add, contentDescription = "add to cart button latest", modifier = Modifier.size(8.dp), tint = com.example.theme.IconButton )
+        }
+
+        IconButton(
+            onClick = { /*TODO*/ },
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(5.dp)
+                .clip(
+                    CircleShape
+                )
+                .size(MaterialTheme.dimens.LatestAddButtonSize)
+                .background(AppIconButton)
+        ) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "add to cart button latest",
+                modifier = Modifier.size(8.dp),
+                tint = com.example.theme.IconButton
+            )
         }
     }
 }

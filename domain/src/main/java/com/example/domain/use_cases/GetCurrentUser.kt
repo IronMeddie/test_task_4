@@ -8,7 +8,9 @@ import javax.inject.Inject
 
 
 class GetCurrentUser @Inject constructor(private val repository: UserRepository) {
+
     operator fun invoke(): Flow<User?> = repository.getCurrentUser().flatMapLatest {
         repository.getUserByFirstName(it)
     }
+    
 }

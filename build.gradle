@@ -1,12 +1,12 @@
 buildscript {
     ext {
-        kotlin_compiler_version = '1.4.2'
-        compile_sdk = 33
+        kotlin_compiler_version = '1.5.15'
+        compile_sdk = 35
         min_sdk = 24
-        target_sdk = 33
+        target_sdk = 35
 
 
-        core_ktx = '1.9.0'
+        core_ktx = '1.12.0'
         lifecycle_runtime_ktx = '2.5.1'
         compose_ui_version = '1.2.0'
         activity_compose = '1.6.1'
@@ -15,8 +15,8 @@ buildscript {
         navigation_compose= '2.6.0-alpha06'
 
         //dagger - hilt
-        hilt_version = '2.44.2'
-        hilt_navigation_compose = '1.0.0'
+        hilt_version = '2.51.1'
+        hilt_navigation_compose = '1.2.0'
 
         //tests
         junit = '4.13.2'
@@ -25,13 +25,20 @@ buildscript {
 
         //coil
         coil_version = '2.2.2'
+
+        jvm = '21'
+
+        java = JavaVersion.VERSION_21
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
 plugins {
-    id 'com.android.application' version '7.4.1' apply false
-    id 'com.android.library' version '7.4.1' apply false
-    id 'org.jetbrains.kotlin.android' version '1.8.10' apply false
-    id 'com.google.dagger.hilt.android' version '2.44' apply false
-    id 'org.jetbrains.kotlin.jvm' version '1.8.0' apply false
+    id 'com.android.application' version '8.8.2' apply false
+    id 'com.android.library' version '8.8.2' apply false
+    id 'org.jetbrains.kotlin.android' version '2.0.21' apply false
+    id 'com.google.dagger.hilt.android' version '2.51.1' apply false
+    id 'org.jetbrains.kotlin.jvm' version '2.0.21' apply false
+    id 'org.jetbrains.kotlin.plugin.compose' version '2.0.21' apply false
 //    id 'org.jetbrains.kotlin.jvm' version '1.8.0' apply false
+    id 'com.google.devtools.ksp' version '2.0.21-1.0.26' apply false
 }

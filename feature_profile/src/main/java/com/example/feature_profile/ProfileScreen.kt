@@ -123,44 +123,62 @@ fun ProfileScreen(navController: NavController, viewModel: ProfileViewModel = hi
 
 
 
-            item { ProfileListItem(stringResource(R.string.trade_store), R.drawable.credit_card, {}) {
-                Icon(
-                    painter = painterResource(id = R.drawable.arrow_next),
-                    contentDescription = "arrow"
-                )
+            item {
+                ProfileListItem(stringResource(R.string.trade_store), R.drawable.credit_card, {}) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.arrow_next),
+                        contentDescription = "arrow"
+                    )
+                }
             }
+            item {
+                ProfileListItem(
+                    stringResource(R.string.payment_method),
+                    R.drawable.credit_card,
+                    {}) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.arrow_next),
+                        contentDescription = "arrow"
+                    )
+                }
             }
-            item { ProfileListItem(stringResource(R.string.payment_method), R.drawable.credit_card, {}) {
-                Icon(
-                    painter = painterResource(id = R.drawable.arrow_next),
-                    contentDescription = "arrow"
-                )
+            item {
+                ProfileListItem(stringResource(R.string.balance), R.drawable.credit_card, {}) {
+                    Text(
+                        text = "$ 1593", fontWeight = FontWeight.W500,
+                        fontSize = 14.sp, color = MaterialTheme.colors.onBackground
+                    )
+                }
             }
+            item {
+                ProfileListItem(
+                    stringResource(R.string.trade_history),
+                    R.drawable.credit_card,
+                    {}) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.arrow_next),
+                        contentDescription = "arrow"
+                    )
+                }
             }
-            item { ProfileListItem(stringResource(R.string.balance), R.drawable.credit_card, {}) {
-                Text(text = "$ 1593", fontWeight = FontWeight.W500,
-                    fontSize = 14.sp, color = MaterialTheme.colors.onBackground)
-            }
-            }
-            item { ProfileListItem(stringResource(R.string.trade_history), R.drawable.credit_card, {}) {
-                Icon(
-                    painter = painterResource(id = R.drawable.arrow_next),
-                    contentDescription = "arrow"
-                )
-            }
-            }
-            item { ProfileListItem(stringResource(R.string.restore_purchase), R.drawable.group_92, {}) {
-                Icon(
-                    painter = painterResource(id = R.drawable.arrow_next),
-                    contentDescription = "arrow"
-                )
-            }
+            item {
+                ProfileListItem(
+                    stringResource(R.string.restore_purchase),
+                    R.drawable.group_92,
+                    {}) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.arrow_next),
+                        contentDescription = "arrow"
+                    )
+                }
             }
             item { ProfileListItem(stringResource(R.string.help), R.drawable.help, {}) {} }
-            item { ProfileListItem(stringResource(R.string.log_out), R.drawable.log_in, {
-                viewModel.logOut()
-                navController.navigateToLoginScreen()
-            }) {} }
+            item {
+                ProfileListItem(stringResource(R.string.log_out), R.drawable.log_in, {
+                    viewModel.logOut()
+                    navController.navigateToLoginScreen()
+                }) {}
+            }
 
         }
     }
@@ -191,29 +209,38 @@ fun ProfileTopBar(onClickBack: () -> Unit) {
 fun ProfileListItem(
     title: String,
     icon: Int,
-    onClick : () -> Unit,
+    onClick: () -> Unit,
     endElement: @Composable () -> Unit,
 
-) {
+    ) {
     Box(modifier = Modifier
         .fillMaxWidth()
         .padding(horizontal = 32.dp, vertical = 10.dp)
         .clickable { onClick() }) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Box(modifier = Modifier
-            .size(40.dp)
-            .clip(CircleShape)
-            .background(GreyIconBack), contentAlignment = Alignment.Center) {
-                Icon(painter = painterResource(id = icon), contentDescription = "profile list item icon")
-        }
-        Spacer(modifier = Modifier.width(6.dp))
-        Text(text = title, fontWeight = FontWeight.W500,
-            fontSize = 14.sp, color = MaterialTheme.colors.onBackground)
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(CircleShape)
+                    .background(GreyIconBack), contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(id = icon),
+                    contentDescription = "profile list item icon"
+                )
+            }
+            Spacer(modifier = Modifier.width(6.dp))
+            Text(
+                text = title, fontWeight = FontWeight.W500,
+                fontSize = 14.sp, color = MaterialTheme.colors.onBackground
+            )
 
-    }
-        Box(modifier = Modifier
-            .align(Alignment.CenterEnd)
-            .padding(end = 13.dp)) {
+        }
+        Box(
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+                .padding(end = 13.dp)
+        ) {
             endElement()
         }
     }

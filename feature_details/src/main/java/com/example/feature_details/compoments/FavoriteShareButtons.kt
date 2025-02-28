@@ -13,19 +13,33 @@ import com.example.feature_details.R
 import com.example.theme.IconButton
 
 @Composable
-fun FavoriteShareButtons(modifier: Modifier = Modifier, onClickShare :() -> Unit, onClickFavorite : () -> Unit){
-    Column(modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.SpaceBetween
+fun FavoriteShareButtons(
+    modifier: Modifier = Modifier,
+    onClickShare: () -> Unit,
+    onClickFavorite: () -> Unit
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Icon(painter = painterResource(id = R.drawable.favorite), contentDescription = "favorite button", tint= IconButton, modifier = Modifier
-            .clickable { onClickFavorite() }
-            .padding(13.dp))
-        Spacer(modifier = Modifier
-            .width(12.dp)
-            .height(1.dp)
-            .background(IconButton))
-        Icon(painter = painterResource(id = R.drawable.share), contentDescription = "share button",tint= IconButton, modifier = Modifier
-            .clickable { onClickShare() }
-            .padding(13.dp))
+        Icon(painter = painterResource(id = R.drawable.favorite),
+            contentDescription = "favorite button",
+            tint = IconButton,
+            modifier = Modifier
+                .clickable { onClickFavorite() }
+                .padding(13.dp))
+        Spacer(
+            modifier = Modifier
+                .width(12.dp)
+                .height(1.dp)
+                .background(IconButton)
+        )
+        Icon(painter = painterResource(id = R.drawable.share),
+            contentDescription = "share button",
+            tint = IconButton,
+            modifier = Modifier
+                .clickable { onClickShare() }
+                .padding(13.dp))
     }
 }

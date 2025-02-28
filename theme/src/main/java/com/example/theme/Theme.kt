@@ -5,15 +5,13 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColors(
     primary = DarkBlue,
     primaryVariant = GreyField,
     secondary = AppBlue,
 
-)
+    )
 
 private val LightColorPalette = lightColors(
     primary = AppBlue,
@@ -34,12 +32,12 @@ fun Test_task_4Theme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compo
         LightColorPalette
     }
 
-        MaterialTheme(
-            colors = colors,
-            typography = Typography,
-            shapes = Shapes,
-            content = content
-        )
+    MaterialTheme(
+        colors = colors,
+        typography = Typography,
+        shapes = Shapes,
+        content = content
+    )
 
 
 }

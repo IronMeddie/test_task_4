@@ -10,7 +10,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LogInViewModel @Inject constructor(private val getUserByName: GetUserByName, private val currentUser: NewCurrentUser) : ViewModel() {
+class LogInViewModel @Inject constructor(
+    private val getUserByName: GetUserByName,
+    private val currentUser: NewCurrentUser
+) : ViewModel() {
 
     private val _firstName = MutableStateFlow("")
     val firstName = _firstName.asStateFlow()
@@ -21,31 +24,31 @@ class LogInViewModel @Inject constructor(private val getUserByName: GetUserByNam
     val eventFLow = _eventFLow.asSharedFlow()
 
 
-    fun logIn(){
+    fun logIn() {
         viewModelScope.launch {
-           getUserByName(firstName = firstName.value).collectLatest {user->
-               if (user != null){
-                   _eventFLow.emit(Logged.Success)
-                   currentUser(user)
-               } else{
-                   _eventFLow.emit(Logged.Failure("User not exist"))
-               }
-           }
+            getUserByName(firstName = firstName.value).collectLatest { user ->
+                if (user != null) {
+                    _eventFLow.emit(Logged.Success)
+                    currentUser(user)
+                } else {
+                    _eventFLow.emit(Logged.Failure("User not exist"))
+                }
+            }
 
 
         }
     }
 
-    fun updateFirstName(str:String){
+    fun updateFirstName(str: String) {
         if (!str.contains("\n")) _firstName.value = str
     }
 
-    fun updatePassword(str:String){
+    fun updatePassword(str: String) {
         if (!str.contains("\n")) _password.value = str
     }
 }
 
-sealed class Logged{
+sealed class Logged {
     object Success : Logged()
-    data class Failure(val message: String): Logged()
+    data class Failure(val message: String) : Logged()
 }

@@ -30,19 +30,20 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
-fun SignUpScreen(navController: NavController, viewModel : LogInViewModel = hiltViewModel()) {
+fun SignUpScreen(navController: NavController, viewModel: LogInViewModel = hiltViewModel()) {
 
     val firstName = viewModel.firstName.collectAsState().value
     val password = viewModel.password.collectAsState().value
-    var isError by remember{ mutableStateOf("") }
-    LaunchedEffect(key1 = true){
+    var isError by remember { mutableStateOf("") }
+    LaunchedEffect(key1 = true) {
         viewModel.eventFLow.collectLatest { logged ->
-            when(logged){
-                is Logged.Success ->{
-                    Log.d("checkCode",  "Logged successful, navigating to mainScreen")
+            when (logged) {
+                is Logged.Success -> {
+                    Log.d("checkCode", "Logged successful, navigating to mainScreen")
                     navController.navigateToMainScreen()
                 }
-                is Logged.Failure->{
+
+                is Logged.Failure -> {
                     isError = logged.message
                     delay(2000)
                     isError = ""
@@ -79,14 +80,14 @@ fun SignUpScreen(navController: NavController, viewModel : LogInViewModel = hilt
                 viewModel::updatePassword
             )
             AnimatedVisibility(visible = isError.isNotEmpty()) {
-               Text(text = isError)
+                Text(text = isError)
             }
 
             Spacer(modifier = Modifier.height(99.dp))
             Button(
                 onClick = {
                     viewModel.logIn()
-                          }, modifier = Modifier
+                }, modifier = Modifier
                     .fillMaxWidth()
                     .height(46.dp)
             ) {

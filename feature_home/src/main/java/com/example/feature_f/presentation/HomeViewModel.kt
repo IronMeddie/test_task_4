@@ -44,7 +44,7 @@ class HomeViewModel @Inject constructor(
         getHomeScreen()
     }
 
-    fun getCurrentUser() {
+    private fun getCurrentUser() {
         viewModelScope.launch {
             currentUserUC().collectLatest {
                 _user.emit(DataResource.Success(it))
@@ -52,7 +52,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getHomeScreen() {
+    private fun getHomeScreen() {
         viewModelScope.launch {
             latestUC().combine(saleUC()) { latest, sale ->
                 when (latest) {
@@ -65,10 +65,12 @@ class HomeViewModel @Inject constructor(
                                     brands = getBrands()
                                 )
                             )
+
                             is DataResource.Failure -> _state.value = sale
                             is DataResource.Loading -> Unit
                         }
                     }
+
                     is DataResource.Failure -> _state.value = latest
                     is DataResource.Loading -> Unit
                 }

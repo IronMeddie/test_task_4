@@ -6,9 +6,9 @@ import com.example.models.Latest
 import com.example.utils.DataResource
 import kotlinx.coroutines.flow.Flow
 
-interface ApiRepository  {
-    fun getLatest() : Flow<DataResource<List<Latest>>>
-    fun getSale() : Flow<DataResource<List<FlashSale>>>
-    fun getDetails() : Flow<DataResource<Details>>
-    fun search(string: String) : Flow<DataResource<List<String>>>
+interface ApiRepository {
+    fun getLatest(): Flow<DataResource<List<Latest>>>
+    fun getSale(): Flow<DataResource<List<FlashSale>>>
+    fun getDetails(): Flow<DataResource<Details>>
+    fun search(string: String): Flow<DataResource<List<String>>>
 }

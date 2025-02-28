@@ -22,7 +22,8 @@ class NetworkConnectionInterceptor @Inject constructor(
 
     private fun isInternetAvailable(): Boolean {
         var result = false
-        val connectivityManager = applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         connectivityManager.let {
             it.getNetworkCapabilities(connectivityManager.activeNetwork)?.apply {
                 result = when {
@@ -36,4 +37,4 @@ class NetworkConnectionInterceptor @Inject constructor(
     }
 }
 
-class NoInternetException(message : String): IOException(message)
+class NoInternetException(message: String) : IOException(message)

@@ -33,53 +33,71 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
     var isExpanded = words.isNotEmpty() && search.isNotEmpty()
 
     Box() {
-    LazyColumn() {
-        item {
-            if (user is DataResource.Success) TopBarHome(user.data)
+        LazyColumn() {
+            item {
+                if (user is DataResource.Success) TopBarHome(user.data)
+            }
+            item {
+                SearchPanel(
+                    value = search,
+                    modifier = Modifier
+                        .padding(vertical = 9.dp, horizontal = 26.dp)
+                        .clip(MaterialTheme.shapes.medium)
+                        .background(SearchField)
+                        .fillMaxWidth(),
+                    hint = stringResource(
+                        R.string.search_hint
+                    ),
+                    onValueChange = viewModel::updateSearch,
+
+                    )
+
+
+            }
+            item { Spacer(modifier = Modifier.height(9.dp)) }
+            item { CategoryRow() }
+            item { Spacer(modifier = Modifier.height(22.dp)) }
+
+            when (state) {
+                is DataResource.Loading -> item {
+                    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                        CircularProgressIndicator()
+                    }
+                }
+
+                is DataResource.Failure -> {
+                    item {
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(text = state.errorBody)
+                        }
+                    }
+                }
+
+                is DataResource.Success -> {
+                    item { Latest(state.data.latest) { navController.navigateToDetails() } }
+                    item { Spacer(modifier = Modifier.height(17.dp)) }
+                    item { Sale(state.data.sale) { navController.navigateToDetails() } }
+                    item { Spacer(modifier = Modifier.height(17.dp)) }
+                    item { Brands(state.data.brands) }
+                }
+            }
+
         }
-        item {
-            SearchPanel(
-                value = search,
+
+        if (isExpanded) {
+            Column(
                 modifier = Modifier
-                    .padding(vertical = 9.dp, horizontal = 26.dp)
+                    .align(Alignment.TopCenter)
+                    .padding(32.dp)
+                    .fillMaxWidth()
+                    .padding(top = 75.dp)
+                    .shadow(4.dp, MaterialTheme.shapes.medium)
                     .clip(MaterialTheme.shapes.medium)
-                    .background(SearchField)
-                    .fillMaxWidth(),
-                hint = stringResource(
-                    R.string.search_hint
-                ),
-                onValueChange = viewModel::updateSearch,
-
-            )
-
-
-        }
-        item { Spacer(modifier = Modifier.height(9.dp)) }
-        item { CategoryRow() }
-        item { Spacer(modifier = Modifier.height(22.dp)) }
-        
-        when(state){
-            is DataResource.Loading -> item { Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
-            } }
-            is DataResource.Failure -> {
-                item { Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                    Text(text = state.errorBody)
-                } }
-            }
-            is DataResource.Success ->{
-                item {  Latest(state.data.latest){ navController.navigateToDetails() } }
-                item { Spacer(modifier = Modifier.height(17.dp)) }
-                item {  Sale(state.data.sale) { navController.navigateToDetails() } }
-                item { Spacer(modifier = Modifier.height(17.dp)) }
-                item { Brands(state.data.brands) }
-            }
-        }
-       
-    }
-
-        if (isExpanded){
-            Column(modifier = Modifier.align(Alignment.TopCenter).padding(32.dp).fillMaxWidth().padding(top = 75.dp).shadow(4.dp, MaterialTheme.shapes.medium).clip(MaterialTheme.shapes.medium).background(MaterialTheme.colors.background)) {
+                    .background(MaterialTheme.colors.background)
+            ) {
                 words.forEach { label ->
                     Box(modifier = Modifier
                         .fillMaxWidth()
@@ -95,7 +113,7 @@ fun HomeScreen(navController: NavController, viewModel: HomeViewModel = hiltView
                 }
             }
         }
-}
+    }
 
 }
 

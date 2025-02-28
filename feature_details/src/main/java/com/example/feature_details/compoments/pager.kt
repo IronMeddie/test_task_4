@@ -24,48 +24,47 @@ import kotlin.math.absoluteValue
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun DetailsImagePager(images: List<String>, state: PagerState) {
-Box() {
-    HorizontalPager(
-        count = images.size,
-        modifier = Modifier
-            .fillMaxWidth(),
-        state = state
-
-    ) { page ->
-        Box(
+    Box() {
+        HorizontalPager(
+            count = images.size,
             modifier = Modifier
-                .padding(MaterialTheme.dimens.MainPagerItemPadding)
-                .height(MaterialTheme.dimens.MainPagerItemHeight)
-                .fillMaxWidth()
-                .clip(MaterialTheme.dimens.MainPagerIemShape)
-        ) {
-            AsyncImage(
-                model = images[page],
-                contentDescription = "product photo",
-                contentScale = ContentScale.Crop,
+                .fillMaxWidth(),
+            state = state
 
-                )
+        ) { page ->
+            Box(
+                modifier = Modifier
+                    .padding(MaterialTheme.dimens.MainPagerItemPadding)
+                    .height(MaterialTheme.dimens.MainPagerItemHeight)
+                    .fillMaxWidth()
+                    .clip(MaterialTheme.dimens.MainPagerIemShape)
+            ) {
+                AsyncImage(
+                    model = images[page],
+                    contentDescription = "product photo",
+                    contentScale = ContentScale.Crop,
+
+                    )
+            }
         }
+        FavoriteShareButtons(modifier = Modifier
+            .padding(MaterialTheme.dimens.ButtonsBoxShareAndFavoritePaddings)
+            .width(MaterialTheme.dimens.ButtonsBoxShareAndFavoriteWidth)
+            .height(MaterialTheme.dimens.ButtonsBoxShareAndFavoritePHeight)
+            .clip(MaterialTheme.dimens.ButtonsBoxShareAndFavoriteShape)
+            .background(AppIconButton)
+            .align(Alignment.TopEnd), onClickFavorite = {}, onClickShare = {})
     }
-    FavoriteShareButtons(modifier = Modifier
-        .padding(MaterialTheme.dimens.ButtonsBoxShareAndFavoritePaddings)
-        .width(MaterialTheme.dimens.ButtonsBoxShareAndFavoriteWidth)
-        .height(MaterialTheme.dimens.ButtonsBoxShareAndFavoritePHeight)
-        .clip(MaterialTheme.dimens.ButtonsBoxShareAndFavoriteShape)
-        .background(AppIconButton)
-        .align(Alignment.TopEnd)
-        , onClickFavorite = {}, onClickShare = {})
-}
 
 }
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun SmalImagePager(images: List<String>, state: PagerState, onClick : (Int) -> Unit) {
+fun SmalImagePager(images: List<String>, state: PagerState, onClick: (Int) -> Unit) {
 
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp.dp
-    val pading = (screenWidth.value.dp - MaterialTheme.dimens.SmallPagerIemWidth)/2
+    val pading = (screenWidth.value.dp - MaterialTheme.dimens.SmallPagerIemWidth) / 2
 
 
     HorizontalPager(
@@ -110,7 +109,8 @@ fun SmalImagePager(images: List<String>, state: PagerState, onClick : (Int) -> U
             AsyncImage(
                 model = images[page],
                 contentDescription = "small pager image",
-                contentScale = ContentScale.Crop)
+                contentScale = ContentScale.Crop
+            )
 
         }
     }

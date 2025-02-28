@@ -16,7 +16,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignInViewModel @Inject constructor(private val insertUser: InsertUserToDB, private val currentUser: NewCurrentUser) : ViewModel() {
+class SignInViewModel @Inject constructor(
+    private val insertUser: InsertUserToDB,
+    private val currentUser: NewCurrentUser
+) : ViewModel() {
 
     private val _firstName = MutableStateFlow("")
     val firstName = _firstName.asStateFlow()
@@ -30,7 +33,7 @@ class SignInViewModel @Inject constructor(private val insertUser: InsertUserToDB
 
     fun insert() {
         viewModelScope.launch {
-            if (_email.value.isEmail()){
+            if (_email.value.isEmail()) {
                 val user = User(
                     firstName = _firstName.value,
                     lastName = _lastName.value,
@@ -42,14 +45,14 @@ class SignInViewModel @Inject constructor(private val insertUser: InsertUserToDB
                     insertUser(user)
                     _eventFLow.emit(Logged.Success)
                     currentUser(user)
-                }catch (e: Throwable){
+                } catch (e: Throwable) {
                     e.message?.let {
                         if (it.contains("UNIQUE constraint failed"))
                             _eventFLow.emit(Logged.Failure("User with firstname ${firstName.value} already exist. Do you want to log in?"))
                     }
 
                 }
-            }else{
+            } else {
                 _eventFLow.emit(Logged.Failure("incorrect email"))
             }
 
@@ -57,14 +60,16 @@ class SignInViewModel @Inject constructor(private val insertUser: InsertUserToDB
         }
     }
 
-    fun updateField(update: UpdateField){
+    fun updateField(update: UpdateField) {
         viewModelScope.launch {
-            if (!update.str.contains("\n")){
-                when(update){
-                    is UpdateField.First-> _firstName.value = update.firstName
-                    is UpdateField.Last-> _lastName.value = update.lastName
-                    is UpdateField.Email-> {
-                        if (!update.email.isEmail()) _eventFLow.emit(Logged.Failure("incorrect email")) else _eventFLow.emit(Logged.Failure(""))
+            if (!update.str.contains("\n")) {
+                when (update) {
+                    is UpdateField.First -> _firstName.value = update.firstName
+                    is UpdateField.Last -> _lastName.value = update.lastName
+                    is UpdateField.Email -> {
+                        if (!update.email.isEmail()) _eventFLow.emit(Logged.Failure("incorrect email")) else _eventFLow.emit(
+                            Logged.Failure("")
+                        )
                         _email.value = update.email
                     }
                 }
@@ -74,8 +79,8 @@ class SignInViewModel @Inject constructor(private val insertUser: InsertUserToDB
 
 }
 
-sealed class UpdateField(val str:String){
-    data class First(val firstName:String): UpdateField(firstName)
-    data class Last(val lastName:String): UpdateField(lastName)
-    data class Email(val email:String): UpdateField(email)
+sealed class UpdateField(val str: String) {
+    data class First(val firstName: String) : UpdateField(firstName)
+    data class Last(val lastName: String) : UpdateField(lastName)
+    data class Email(val email: String) : UpdateField(email)
 }

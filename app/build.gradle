@@ -1,7 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
+    id 'com.google.devtools.ksp'
+    id 'org.jetbrains.kotlin.plugin.compose'
     id 'com.google.dagger.hilt.android'
 }
 
@@ -14,7 +15,7 @@ android {
         minSdk min_sdk
         targetSdk target_sdk
         versionCode 1
-        versionName "1.0"
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -29,11 +30,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = jvm
     }
     buildFeatures {
         compose true
@@ -62,6 +63,7 @@ dependencies {
 
 
     implementation "androidx.core:core-ktx:$core_ktx"
+    implementation 'io.appmetrica.analytics:analytics:7.7.0'
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_runtime_ktx"
     implementation "androidx.activity:activity-compose:$activity_compose"
     implementation "androidx.compose.ui:ui:$compose_ui_version"
@@ -82,5 +84,5 @@ dependencies {
     //Dagger - Hilt
     implementation "androidx.hilt:hilt-navigation-compose:$hilt_navigation_compose"
     implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    ksp "com.google.dagger:hilt-compiler:$hilt_version"
 }
